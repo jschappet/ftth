@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301892C520C96ECB00FC263A /* HealthItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301892C420C96ECB00FC263A /* HealthItem.swift */; };
+		3031FBB320C8665700BAE929 /* CouchdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031FBB220C8665700BAE929 /* CouchdbClient.swift */; };
+		3031FBB620C875F400BAE929 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031FBB520C875F400BAE929 /* HealthKit.framework */; };
+		3031FBB820C877CD00BAE929 /* HealthKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031FBB720C877CD00BAE929 /* HealthKitInterface.swift */; };
 		30D15BBB20C0236C00C39C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBA20C0236C00C39C2D /* AppDelegate.swift */; };
 		30D15BBD20C0236C00C39C2D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBC20C0236C00C39C2D /* MasterViewController.swift */; };
 		30D15BBF20C0236C00C39C2D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBE20C0236C00C39C2D /* DetailViewController.swift */; };
 		30D15BC220C0236C00C39C2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D15BC020C0236C00C39C2D /* Main.storyboard */; };
 		30D15BC420C0236C00C39C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D15BC320C0236C00C39C2D /* Assets.xcassets */; };
 		30D15BC720C0236C00C39C2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D15BC520C0236C00C39C2D /* LaunchScreen.storyboard */; };
+		94E460E607C729D2D51263F1 /* Pods_ftth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4861C9682842F81D3B0ECC00 /* Pods_ftth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301892C420C96ECB00FC263A /* HealthItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthItem.swift; sourceTree = "<group>"; };
+		3031FBB220C8665700BAE929 /* CouchdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchdbClient.swift; sourceTree = "<group>"; };
+		3031FBB420C875F300BAE929 /* ftth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ftth.entitlements; sourceTree = "<group>"; };
+		3031FBB520C875F400BAE929 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		3031FBB720C877CD00BAE929 /* HealthKitInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitInterface.swift; sourceTree = "<group>"; };
 		30D15BB720C0236C00C39C2D /* ftth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ftth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D15BBA20C0236C00C39C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D15BBC20C0236C00C39C2D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +34,9 @@
 		30D15BC320C0236C00C39C2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D15BC620C0236C00C39C2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30D15BC820C0236C00C39C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4861C9682842F81D3B0ECC00 /* Pods_ftth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ftth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAC2F7A70B0D2F2488439880 /* Pods-ftth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ftth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ftth/Pods-ftth.debug.xcconfig"; sourceTree = "<group>"; };
+		FDA978195EC8F447A133235A /* Pods-ftth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ftth.release.xcconfig"; path = "Pods/Target Support Files/Pods-ftth/Pods-ftth.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +44,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E460E607C729D2D51263F1 /* Pods_ftth.framework in Frameworks */,
+				3031FBB620C875F400BAE929 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		055991EA79C50F20628E7ED0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BAC2F7A70B0D2F2488439880 /* Pods-ftth.debug.xcconfig */,
+				FDA978195EC8F447A133235A /* Pods-ftth.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		30D15BAE20C0236C00C39C2D = {
 			isa = PBXGroup;
 			children = (
 				30D15BB920C0236C00C39C2D /* ftth */,
 				30D15BB820C0236C00C39C2D /* Products */,
+				055991EA79C50F20628E7ED0 /* Pods */,
+				53946397649EEC312DB5F273 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +82,7 @@
 		30D15BB920C0236C00C39C2D /* ftth */ = {
 			isa = PBXGroup;
 			children = (
+				3031FBB420C875F300BAE929 /* ftth.entitlements */,
 				30D15BBA20C0236C00C39C2D /* AppDelegate.swift */,
 				30D15BBC20C0236C00C39C2D /* MasterViewController.swift */,
 				30D15BBE20C0236C00C39C2D /* DetailViewController.swift */,
@@ -63,8 +90,20 @@
 				30D15BC320C0236C00C39C2D /* Assets.xcassets */,
 				30D15BC520C0236C00C39C2D /* LaunchScreen.storyboard */,
 				30D15BC820C0236C00C39C2D /* Info.plist */,
+				3031FBB220C8665700BAE929 /* CouchdbClient.swift */,
+				3031FBB720C877CD00BAE929 /* HealthKitInterface.swift */,
+				301892C420C96ECB00FC263A /* HealthItem.swift */,
 			);
 			path = ftth;
+			sourceTree = "<group>";
+		};
+		53946397649EEC312DB5F273 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3031FBB520C875F400BAE929 /* HealthKit.framework */,
+				4861C9682842F81D3B0ECC00 /* Pods_ftth.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +113,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 30D15BCB20C0236C00C39C2D /* Build configuration list for PBXNativeTarget "ftth" */;
 			buildPhases = (
+				186951B411EFAA431EC5AEE7 /* [CP] Check Pods Manifest.lock */,
 				30D15BB320C0236C00C39C2D /* Sources */,
 				30D15BB420C0236C00C39C2D /* Frameworks */,
 				30D15BB520C0236C00C39C2D /* Resources */,
+				DB86590F65257940FE42F39E /* [CP] Embed Pods Frameworks */,
+				DBEA7B973C2FCD66243274F9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -100,6 +142,11 @@
 					30D15BB620C0236C00C39C2D = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -134,14 +181,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		186951B411EFAA431EC5AEE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ftth-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB86590F65257940FE42F39E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ftth/Pods-ftth-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftCloudant/SwiftCloudant.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCloudant.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ftth/Pods-ftth-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBEA7B973C2FCD66243274F9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ftth/Pods-ftth-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		30D15BB320C0236C00C39C2D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				30D15BBF20C0236C00C39C2D /* DetailViewController.swift in Sources */,
+				3031FBB320C8665700BAE929 /* CouchdbClient.swift in Sources */,
 				30D15BBD20C0236C00C39C2D /* MasterViewController.swift in Sources */,
 				30D15BBB20C0236C00C39C2D /* AppDelegate.swift in Sources */,
+				301892C520C96ECB00FC263A /* HealthItem.swift in Sources */,
+				3031FBB820C877CD00BAE929 /* HealthKitInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +319,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -266,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -276,11 +380,14 @@
 		};
 		30D15BCC20C0236C00C39C2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAC2F7A70B0D2F2488439880 /* Pods-ftth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ftth/ftth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4A5YTZSV74;
+				DEVELOPMENT_TEAM = HF6UK642JW;
 				INFOPLIST_FILE = ftth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.schappet.ftth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,11 +398,14 @@
 		};
 		30D15BCD20C0236C00C39C2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDA978195EC8F447A133235A /* Pods-ftth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ftth/ftth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4A5YTZSV74;
+				DEVELOPMENT_TEAM = HF6UK642JW;
 				INFOPLIST_FILE = ftth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.schappet.ftth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
