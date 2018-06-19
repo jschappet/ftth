@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300B320720D7F1E400A25EE4 /* UYLNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300B320620D7F1E400A25EE4 /* UYLNotificationDelegate.swift */; };
 		301892C520C96ECB00FC263A /* HealthItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301892C420C96ECB00FC263A /* HealthItem.swift */; };
 		3031FBB320C8665700BAE929 /* CouchdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031FBB220C8665700BAE929 /* CouchdbClient.swift */; };
 		3031FBB620C875F400BAE929 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031FBB520C875F400BAE929 /* HealthKit.framework */; };
 		3031FBB820C877CD00BAE929 /* HealthKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031FBB720C877CD00BAE929 /* HealthKitInterface.swift */; };
+		30A4998120CEBFC100458C42 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4998020CEBFC100458C42 /* MainWindowController.swift */; };
 		30D15BBB20C0236C00C39C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBA20C0236C00C39C2D /* AppDelegate.swift */; };
 		30D15BBD20C0236C00C39C2D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBC20C0236C00C39C2D /* MasterViewController.swift */; };
 		30D15BBF20C0236C00C39C2D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D15BBE20C0236C00C39C2D /* DetailViewController.swift */; };
@@ -21,11 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300B320620D7F1E400A25EE4 /* UYLNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UYLNotificationDelegate.swift; sourceTree = "<group>"; };
 		301892C420C96ECB00FC263A /* HealthItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthItem.swift; sourceTree = "<group>"; };
 		3031FBB220C8665700BAE929 /* CouchdbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchdbClient.swift; sourceTree = "<group>"; };
 		3031FBB420C875F300BAE929 /* ftth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ftth.entitlements; sourceTree = "<group>"; };
 		3031FBB520C875F400BAE929 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3031FBB720C877CD00BAE929 /* HealthKitInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitInterface.swift; sourceTree = "<group>"; };
+		30A4998020CEBFC100458C42 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		30D15BB720C0236C00C39C2D /* ftth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ftth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D15BBA20C0236C00C39C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D15BBC20C0236C00C39C2D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				30D15BBE20C0236C00C39C2D /* DetailViewController.swift */,
 				30D15BC020C0236C00C39C2D /* Main.storyboard */,
 				30D15BC320C0236C00C39C2D /* Assets.xcassets */,
+				30A4998020CEBFC100458C42 /* MainWindowController.swift */,
+				300B320620D7F1E400A25EE4 /* UYLNotificationDelegate.swift */,
 				30D15BC520C0236C00C39C2D /* LaunchScreen.storyboard */,
 				30D15BC820C0236C00C39C2D /* Info.plist */,
 				3031FBB220C8665700BAE929 /* CouchdbClient.swift */,
@@ -207,11 +213,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ftth/Pods-ftth-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCloudant/SwiftCloudant.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCloudant.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -241,8 +253,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D15BBF20C0236C00C39C2D /* DetailViewController.swift in Sources */,
+				30A4998120CEBFC100458C42 /* MainWindowController.swift in Sources */,
 				3031FBB320C8665700BAE929 /* CouchdbClient.swift in Sources */,
 				30D15BBD20C0236C00C39C2D /* MasterViewController.swift in Sources */,
+				300B320720D7F1E400A25EE4 /* UYLNotificationDelegate.swift in Sources */,
 				30D15BBB20C0236C00C39C2D /* AppDelegate.swift in Sources */,
 				301892C520C96ECB00FC263A /* HealthItem.swift in Sources */,
 				3031FBB820C877CD00BAE929 /* HealthKitInterface.swift in Sources */,

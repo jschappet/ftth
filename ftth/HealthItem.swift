@@ -87,7 +87,9 @@ struct HealthItem: Codable {
 
         case HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount):
             self.type = .StepCount
-            value1 =  quantitySample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+            value1 =  quantitySample.quantity.doubleValue(for: HKUnit.count())
+            self.value = "\(value1)"
+
 
         default:
             self.type = .NotImplemented
@@ -112,9 +114,19 @@ struct HealthItem: Codable {
     }
 
     func json() -> Any? {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(formatter)
         
         var json: Any?
-        let encodedData = try? JSONEncoder().encode(self)
+        let encodedData = try? encoder.encode(self)
+
         
         if let data = encodedData {
             json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)

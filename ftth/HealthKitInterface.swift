@@ -7,9 +7,6 @@
 //
 
 import Foundation
-import Foundation
-
-// STEP 1: MUST import HealthKit
 import HealthKit
 
 class HealthKitInterface
@@ -34,7 +31,12 @@ class HealthKitInterface
             
             // STEP 6: create two Sets of HKQuantityTypes representing
             // heart rate data; one for reading, one for writing
-            readableHKQuantityTypes = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
+            readableHKQuantityTypes = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
+                                       HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bodyMass)!,
+                                       HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodPressureSystolic)!,
+                                       HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodPressureDiastolic)!,
+                                       HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!,
+            ]
             //writeableHKQuantityTypes = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
             writeableHKQuantityTypes = nil
             
@@ -126,30 +128,36 @@ class HealthKitInterface
     // STEP 9.0: this is my wrapper for reading all "recent"
     // heart rate samples from the HKHealthStore
     func readHealthData(startDate: Date, endDate: Date, identifier: HKQuantityTypeIdentifier, completion: (([HealthItem]?, NSError?) -> Void)!) -> Void {
-        
+        var activities = [HealthItem]()
+
         // STEP 9.1: just as in STEP 6, we're telling the `HealthKitStore`
         // that we're interested in reading heart rate data
-        let heartRateType = HKQuantityType.quantityType(forIdentifier: identifier)!
-        
+        let healthType = HKQuantityType.quantityType(forIdentifier: identifier)!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: HKQueryOptions())
+
         // STEP 9.2: define a query for "recent" heart rate data;
         // in pseudo-SQL, this would look like:
         //
         // SELECT bpm FROM HealthKitStore WHERE qtyTypeID = '.heartRate';
-        let query = HKAnchoredObjectQuery(type: heartRateType, predicate: nil, anchor: nil, limit: HKObjectQueryNoLimit) {
+        let query = HKAnchoredObjectQuery(type: healthType, predicate: predicate, anchor: nil, limit: HKObjectQueryNoLimit) {
             (query, samplesOrNil, deletedObjectsOrNil, newAnchor, errorOrNil) in
             
             if let samples = samplesOrNil {
                 
-                for heartRateSamples in samples {
-                    let item = HealthItem(sample: heartRateSamples)
-                    print ("JSON: \n" + String(describing: item?.json()))
-                    //print(heartRateSamples)
+                for healthSample in samples {
+                    if let item = HealthItem(sample: healthSample) {
+                        //print ("JSON: \n" + String(describing: item.json()))
+                        //print(heartRateSamples)
+                        activities.append(item)
+                    }
+                    
                 }
                 
             } else {
                 print("No heart rate sample available.")
             }
-            
+            completion?(activities, errorOrNil as NSError?)
+
         }
         
         // STEP 9.3: execute the query for heart rate data

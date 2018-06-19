@@ -12,7 +12,7 @@ class MyDbClient {
 
 // Create a CouchDBClient
 let cloudantURL = URL(string:"https://data.schappet.com")!
-let client = CouchDBClient(url:URL(string:"https://data.schappet.com")!, username:"schappetj", password:"XXXXXXXX")
+let client = CouchDBClient(url:URL(string:"https://data.schappet.com")!, username:"schappetj", password:"3mq-wgd-Ghn-LxJ")
 let dbName = "sample_db"
 
 func createDocument() {
@@ -27,6 +27,44 @@ func createDocument() {
     client.add(operation:create)
 }
 
+    func postYesterdaysHealthData(date: Date, items: [HealthItem]) {
+        
+        var jsonData = [Any?]()
+        for item in items {
+            jsonData.append(item.json())
+        }
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        let id = formatter.string(from: date)
+/*
+        var revision = ""
+        // Read a document
+        let read = GetDocumentOperation(id: id, databaseName: dbName) { (response, httpInfo, error) in
+            if let error = error {
+                print("Encountered an error while reading a document. Error:\(error)")
+            } else {
+                print("Read document: \(response ?? ["NA":"NA"])")
+               // revision = response?[rerevision]
+            }
+        }
+        client.add(operation:read)
+*/
+        
+        // Create a document
+        let create = PutDocumentOperation(id:  id,  body: ["details": jsonData],
+                                          databaseName: dbName    ) {(response, httpInfo, error) in
+                                            if let error = error {
+                                                print("Encountered an error while creating a document. Error:\(error)")
+                                            } else {
+                                                print("Created document \(response?["id"] ?? "NA") with revision id \(response?["rev"] ?? "NA")")
+                                            }
+        }
+        client.add(operation:create)
+    
+    }
+
+    
 /*
 // create an attachment
 let attachment = "This is my awesome essay attachment for my document"

@@ -6,7 +6,8 @@ target 'ftth' do
   use_frameworks!
 
   # Pods for ftth
-  
+  pod 'SwiftDate'
+  pod 'AWSS3'
   pod 'SwiftCloudant', :git => 'https://github.com/cloudant/swift-cloudant.git', :tag => 'swift-4'
 
 

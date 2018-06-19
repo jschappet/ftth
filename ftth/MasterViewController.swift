@@ -7,20 +7,57 @@
 //
 
 import UIKit
+import SwiftDate
 
 class MasterViewController: UITableViewController {
+
+    let cal = Calendar(identifier: .gregorian)
 
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
 
     // HealthKit setup
     let healthKitInterface = HealthKitInterface()
+    var yesterdaysVitals = [HealthItem]()
+    
+    func getYesterdayData() {
+        
+        let oneWeekAgo: Date = 2.days.ago()!
+        
+        let oneDayAgo: Date = 1.days.ago()!
+        
+        let beginDate = cal.startOfDay(for: oneWeekAgo)
+        let endDate = cal.startOfDay(for: oneDayAgo)
+        
+        healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
+                                          identifier: .heartRate, completion: { (hkItems, error) in
+                                            self.yesterdaysVitals += hkItems!
+                                            print("Heart Rate Count: \(hkItems!.count)")}
+        )
+        
+        healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
+                                          identifier: .bodyMass, completion: { (hkItems, error) in
+                                            self.yesterdaysVitals += hkItems!
+                                            print("Weight Count: \(hkItems!.count)")}
+        )
+        
+        healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
+                                          identifier: .stepCount, completion: { (hkItems, error) in
+                                            self.yesterdaysVitals += hkItems!
+                                            print("Step Count: \(hkItems!.count)")}
+        )
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         // Do any additional setup after loading the view, typically from a nib.
         navigationItem.leftBarButtonItem = editButtonItem
-        healthKitInterface.readHeartRateData()
+        
+        getYesterdayData()
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
