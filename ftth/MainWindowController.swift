@@ -200,6 +200,15 @@ class MainViewController: UIViewController {
         dateFormatter.timeStyle = .none
         
         textField.text = dateFormatter.string(from: datePicker.date)
+        currentStatus.heartRateReady =  false
+        currentStatus.stepReady = false
+        currentStatus.weightReady = false
+        
+        self.heartRateCount.text = ""
+        self.weightCount.text = ""
+        self.stepCount.text = ""
+        
+
         
     }
     
