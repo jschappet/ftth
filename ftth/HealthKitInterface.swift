@@ -163,7 +163,49 @@ class HealthKitInterface
         // STEP 9.3: execute the query for heart rate data
         healthKitDataStore?.execute(query)
         
-    } // end func readHeartRateData
+    } // end func readHealthData
     
+    
+    // STEP 9.0: this is my wrapper for reading all "recent"
+    // heart rate samples from the HKHealthStore
+    func readHealthDataBP(startDate: Date, endDate: Date, completion: (([HealthItem]?, NSError?) -> Void)!) -> Void {
+        var activities = [HealthItem]()
+        
+        guard let type = HKQuantityType.correlationType(forIdentifier: HKCorrelationTypeIdentifier.bloodPressure),
+            let systolicType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodPressureSystolic),
+            let diastolicType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodPressureDiastolic) else {
+                // display error, etc...
+                return
+        }
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: HKQueryOptions())
+
+        let sortDescriptor = NSSortDescriptor(key:HKSampleSortIdentifierStartDate, ascending: true)
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor])
+        { (query, results, errorOrNil ) -> Void in
+            
+            if let dataList = results as? [HKCorrelation] {
+                for data in dataList
+                {
+                    if let data1 = data.objects(for: systolicType).first as? HKQuantitySample,
+                        let data2 = data.objects(for: diastolicType).first as? HKQuantitySample {
+                        // TODO: Get HeartRate for the
+                        if let bp = HealthItem( sample: data1) {
+                            activities.append(bp)
+                        }
+                        if let bp = HealthItem( sample: data2) {
+                            activities.append(bp)
+                        }
+                        
+                        
+                    }
+                }
+                completion?(activities, errorOrNil as NSError?)
+            }
+            
+        }
+        healthKitDataStore?.execute(query)
+        
+    } // end func readHealthData
     
 } // end class HealthKitInterface

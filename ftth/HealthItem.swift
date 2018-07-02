@@ -53,6 +53,7 @@ struct HealthItem: Codable {
     var endDate: Date
     var deviceName: String
     var value: String
+
     
     init(quantitySample: HKQuantitySample) {
         self.uuid = quantitySample.uuid
@@ -100,7 +101,8 @@ struct HealthItem: Codable {
         
         
     }
-
+    
+    
     init?(sample: HKSample) {
         if let data1 = sample as? HKQuantitySample {
             // TODO: Get HeartRate for the

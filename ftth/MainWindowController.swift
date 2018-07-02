@@ -15,9 +15,10 @@ struct CurrentStatus {
     var heartRateReady = false
     var weightReady = false
     var stepReady = false
+    var bpReady = false
     
     func isReady() -> Bool {
-        return heartRateReady && weightReady && stepReady
+        return heartRateReady && weightReady && stepReady && bpReady
     }
 }
 
@@ -55,6 +56,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var heartRateCount: UITextField!
     
     @IBOutlet weak var stepCount: UITextField!
+    
+    @IBOutlet weak var bp: UITextField!
     
     @IBOutlet weak var uploadData: UIButton!
     
@@ -120,6 +123,17 @@ class MainViewController: UIViewController {
                                                 self.stepCount.text = "\(String(describing: hkItems!.count))"
                                             }
                                             print("Step Count: \(hkItems!.count)")}
+        )
+        
+        healthKitInterface.readHealthDataBP(startDate: beginDate, endDate: endDate, completion: { (hkItems, error) in
+                                            DispatchQueue.main.async {
+                                                
+                                                self.yesterdaysVitals += hkItems!
+                                                self.currentStatus.bpReady = true
+                                                
+                                                self.bp.text = "\(String(describing: hkItems!.count))"
+                                            }
+                                            print("Bp Count: \(hkItems!.count)")}
         )
         
     }
@@ -203,11 +217,13 @@ class MainViewController: UIViewController {
         currentStatus.heartRateReady =  false
         currentStatus.stepReady = false
         currentStatus.weightReady = false
+        currentStatus.bpReady = false
         
         self.heartRateCount.text = ""
         self.weightCount.text = ""
         self.stepCount.text = ""
-        
+        self.bp.text = ""
+
 
         
     }
