@@ -1,14 +1,18 @@
 PODS:
+  - Alamofire (4.5.1)
   - AWSCore (2.6.19)
   - AWSS3 (2.6.19):
     - AWSCore (= 2.6.19)
   - SwiftCloudant (0.7.0)
   - SwiftDate (4.5.1)
+  - SwiftyDropbox (4.6.0):
+    - Alamofire (~> 4.5.0)
 
 DEPENDENCIES:
   - AWSS3
   - SwiftCloudant (from `https://github.com/cloudant/swift-cloudant.git`, tag `swift-4`)
   - SwiftDate
+  - SwiftyDropbox
 
 EXTERNAL SOURCES:
   SwiftCloudant:
@@ -21,11 +25,13 @@ CHECKOUT OPTIONS:
     :tag: swift-4
 
 SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   AWSCore: 3019940607dee2a467e0a8de638649d9fcb9afc3
   AWSS3: 003ab3d5b42cd512d812d9227cd927d0345b739b
   SwiftCloudant: 07d48f1e12241fde9eb8bfe962c0005d3d8574c5
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
+  SwiftyDropbox: 8af645e744de6f17b4e9fdeba21365b8dc55a542
 
-PODFILE CHECKSUM: a80d62f06062d000d2e2cc38c6d886c243722ac4
+PODFILE CHECKSUM: f97756a95eda12e71336df64608dd85e3e71cd11
 
 COCOAPODS: 1.3.1

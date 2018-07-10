@@ -10,6 +10,8 @@ import Foundation
 
 import UIKit
 import SwiftDate
+import SwiftyDropbox
+
 
 struct CurrentStatus {
     var heartRateReady = false
@@ -33,6 +35,9 @@ class MainViewController: UIViewController {
     var toolBar = UIToolbar()
     
 
+    var sendToCouch = false
+    
+    var sendToDropBox = true
     
     
     let cal = Calendar(identifier: .gregorian)
@@ -60,12 +65,77 @@ class MainViewController: UIViewController {
     @IBOutlet weak var bp: UITextField!
     
     @IBOutlet weak var uploadData: UIButton!
+
+    
+    
+    
+    func sendDataToDropBox(date: Date, items: [HealthItem]) {
+        let dbClient = DropboxClientsManager.authorizedClient
+
+        
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        let id = formatter.string(from: date)
+        
+        formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: date)
+
+        formatter.dateFormat = "MM"
+        let month = formatter.string(from: date)
+
+        
+        dbClient?.files.createFolderV2(path: "/\(year)/\(month)").response { response, error in
+            if let response = response {
+                print(response)
+            } else if let error = error {
+                print(error)
+            }
+        }
+        
+        let jsonEncoder = JSONEncoder()
+        
+        
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        jsonEncoder.dateEncodingStrategy = .formatted(formatter)
+        
+        do {
+        let jsonData = try jsonEncoder.encode(items)
+    
+            if let fileData = String(data: jsonData, encoding: .utf8)?.data(using: String.Encoding.utf8, allowLossyConversion: false){
+                let _ = dbClient?.files.upload(path: "/\(year)/\(month)/\(id).json", mode: .overwrite, input: fileData)
+                    .response { response, error in
+                        if let response = response {
+                            print(response)
+                        } else if let error = error {
+                            print(error)
+                        }
+                    }
+                    .progress { progressData in
+                        print(progressData)
+                }
+            }
+        } catch {
+            print ("error encoding json string")
+        }
+    }
+    
     
     
     @IBAction func performUploadOfData(_ sender: Any) {
         let beginDate = cal.startOfDay(for: datePicker.date)
 
-        client.postYesterdaysHealthData(date: beginDate, items: yesterdaysVitals)
+        if (sendToCouch) {
+            client.postYesterdaysHealthData(date: beginDate, items: yesterdaysVitals)
+        }
+        
+        if (sendToDropBox) {
+            sendDataToDropBox(date: beginDate, items: yesterdaysVitals)
+        }
         print("button clicked")
         
     }
@@ -231,6 +301,18 @@ class MainViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    
+    @IBAction func linkDropBox(_ sender: Any) {
+        DropboxClientsManager.authorizeFromController(UIApplication.shared,
+                                                      controller: self,
+                                                      openURL: { (url: URL) -> Void in
+                                                        UIApplication.shared.openURL(url)
+        })
+    }
+    
+    
+    
     
     
     
