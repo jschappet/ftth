@@ -12,7 +12,7 @@ class MyDbClient {
 
 // Create a CouchDBClient
 let cloudantURL = URL(string:"https://data.schappet.com")!
-let client = CouchDBClient(url:URL(string:"https://data.schappet.com")!, username:"schappetj", password:"3mq-wgd-Ghn-LxJ")
+let client = CouchDBClient(url:URL(string:"https://data.schappet.com")!, username:"schappetj", password:"BLAHBLAHBLAH")
 let dbName = "sample_db"
 
 func createDocument() {
