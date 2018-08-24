@@ -26,6 +26,33 @@ struct CurrentStatus {
 
 class MainViewController: UIViewController {
 
+    
+    var fetchButton = UIBarButtonItem()
+    var uploadButton = UIBarButtonItem()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        fetchButton = UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(getHealthData))
+        uploadButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(performUploadOfData))
+
+        let calenderButton = UIBarButtonItem(title: "Calender", style: .plain, target: self, action: #selector(showCalender))
+
+        
+        //  let fetchButton = UIBarButtonItem(barButtonSystemItem: fetchUIButton, target: self, action: #selector(getHealthData))
+        
+        self.navigationItem.rightBarButtonItem =  fetchButton
+        self.navigationItem.leftBarButtonItem =  calenderButton
+        
+        
+        // getYesterdayData()
+        createDatePicker()
+        createToolBar()
+        addTextField()
+    }
+    
+    
     // HealthKit setup
     let healthKitInterface = HealthKitInterface()
     var yesterdaysVitals = [HealthItem]()
@@ -47,9 +74,12 @@ class MainViewController: UIViewController {
     var currentStatus = CurrentStatus() {
         didSet {
             DispatchQueue.main.async {
+                if (self.currentStatus.isReady()) {
+                    self.navigationItem.rightBarButtonItem =  self.uploadButton
+                }
 
-                self.uploadData.isEnabled = self.currentStatus.isReady()
-                self.uploadData.isHidden = !self.currentStatus.isReady()
+                //self.uploadData.isEnabled = self.currentStatus.isReady()
+                //self.uploadData.isHidden = !self.currentStatus.isReady()
             }
             print("Is Ready: \(currentStatus.isReady())")
         }
@@ -64,8 +94,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var bp: UITextField!
     
-    @IBOutlet weak var uploadData: UIButton!
-
+    
     
     
     
@@ -122,11 +151,24 @@ class MainViewController: UIViewController {
         } catch {
             print ("error encoding json string")
         }
+        
+        
     }
     
     
+    @objc
+    func showCalender() {
+        
+        print("loading calendar view")
+        
+        let viewController = ViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
     
-    @IBAction func performUploadOfData(_ sender: Any) {
+    
+    //@IBAction
+    @objc
+    func performUploadOfData(_ sender: Any) {
         let beginDate = cal.startOfDay(for: datePicker.date)
 
         if (sendToCouch) {
@@ -137,26 +179,56 @@ class MainViewController: UIViewController {
             sendDataToDropBox(date: beginDate, items: yesterdaysVitals)
         }
         print("button clicked")
-        
+        self.navigationItem.rightBarButtonItem =  fetchButton
     }
     
-    @IBAction func getHealthData(_ sender: Any) {
-        
-        getYesterdayData()
-        
-    }
-    
-    
-    func getYesterdayData() {
-        
-        //let oneWeekAgo: Date = 2.days.ago()!
-        
-        //let oneDayAgo: Date = 1.days.ago()!
-        
+    @objc
+    //@IBAction
+    func getHealthData(_ sender: Any) {
+        self.navigationItem.rightBarButtonItem =  nil
+
         let beginDate = cal.startOfDay(for: datePicker.date)
         let endDate = beginDate.addingTimeInterval(86400)
         print(beginDate)
         print(endDate)
+        
+        getYesterdayData(beginDate: beginDate, endDate: endDate)
+    }
+    
+    
+    /*
+    @IBAction func upload30Days(_ sender: Any) {
+        DispatchQueue.main.async {
+
+        var beginDate = self.cal.startOfDay(for: self.datePicker.date)
+        for i in 1...30 {
+            let endDate = beginDate.addingTimeInterval(86400)
+            print ("\(i) \(beginDate) \(endDate)")
+            
+            self.getYesterdayData(beginDate: beginDate, endDate: endDate)
+       
+                while !(self.currentStatus.isReady()) {
+                    print("sleeping: \(self.yesterdaysVitals.count)")
+                    sleep(2)
+                
+                }
+                if (self.sendToDropBox) {
+                    print("sending to dropbox")
+                    self.sendDataToDropBox(date: beginDate, items: self.yesterdaysVitals)
+                }
+                print("reseting")
+                self.currentStatus.heartRateReady =  false
+                self.currentStatus.stepReady = false
+                self.currentStatus.weightReady = false
+                self.currentStatus.bpReady = false
+            beginDate = beginDate.addingTimeInterval(-86400)
+        }
+      }
+
+    }
+    */
+    func getYesterdayData(beginDate: Date, endDate: Date) {
+        
         
         healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
                                           identifier: .heartRate, completion: { (hkItems, error) in
@@ -208,14 +280,49 @@ class MainViewController: UIViewController {
         
     }
     
+    @IBOutlet weak var get30Days: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       // getYesterdayData()
-        createDatePicker()
-        createToolBar()
-        addTextField()
+    
+    @IBAction func get30DaysBtn(_ sender: Any) {
+        var beginDate = self.cal.startOfDay(for: self.datePicker.date)
+        
+        for _  in 1...90 {
+            let endDate = beginDate.addingTimeInterval(86400)
+            print("\(beginDate) \(endDate)")
+            getNestedData(beginDate: beginDate, endDate:endDate)
+            beginDate = beginDate.addingTimeInterval(-86400)
+        }
     }
+    
+    func getNestedData(beginDate: Date, endDate: Date) {
+        
+        var vitals = [HealthItem]()
+        
+        healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
+                                          identifier: .heartRate, completion: { (hkItems, error) in
+                                            vitals += hkItems!
+                                            self.healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate,
+                                                        identifier: .bodyMass, completion: { (hkItems, error) in
+                                            
+                                                            vitals += hkItems!
+                                                            self.healthKitInterface.readHealthData(startDate: beginDate, endDate: endDate, identifier: .stepCount, completion: { (hkItems, error) in
+                                                            vitals += hkItems!
+                                                                self.healthKitInterface.readHealthDataBP(startDate: beginDate, endDate: endDate, completion: { (hkItems, error) in
+                                                                vitals += hkItems!
+                                                                self.sendDataToDropBox(date: beginDate, items: vitals)
+                                                                })}
+                                                                                        )
+                                                                                
+                                                                                     }
+                                                                                    
+                                                    
+        )
+                                            
+        
+    })
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -228,7 +335,7 @@ class MainViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40.0).isActive = true
         textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40.0).isActive = true
-        textField.topAnchor.constraint(equalTo: view.topAnchor, constant: 40.0).isActive = true
+        textField.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0).isActive = true
         textField.placeholder = "Select date"
         textField.borderStyle = .roundedRect
         
